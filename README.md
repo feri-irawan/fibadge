@@ -51,14 +51,13 @@ GET /clones/:username/:repo/:token
 - `:token` Personal Access Token. Lihat [Panduan Penggunaan Personal Access Token](#panduan-penggunaan-personal-access-token)
 
 Query string:
-| Nama    | Deskripsi                                                                                                                                                                                                      |
-| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `label` | Untuk mengganti label default (`VISITOR`) dengan label lainnya, misalnya `label=views` atau `label=pengunjung`                                                                                                 |
-| `color` | Untuk mengubah warna background badge, misalnya `color=red` atau `color=ff0000` (mendukung hex, rgb, rgba, hsl, hsla dan nama warna css)                                                                       |
-| `style` | Untuk mengubah gaya badge, untuk nilainnya kamu bisa lihat style yang disediakan [shields.io](https://shields.io/), misal `style=social`, dll.                                                                 |
-| `logo`  | Untuk menambahkan logo pada badge, misal `logo=github`, untuk daftar logo kamu bisa menggunakan logo yang disediakan oleh [Simple Icons](https://simpleicons.org/)                                             |
-| `token` | Berisi Personal Access Token untuk menyamakan visitor asli dari repositori (mengambil data views dari Github API). Lihat [Panduan Penggunaan Personal Access Token](#panduan-penggunaan-personal-access-token) |
-| `type`  | Untuk mengubah Content Type badge (default: `svg`), misalnya `type=png` untuk mengganti ke Content Type `png`                                                                                                  |
+| Nama    | Deskripsi                                                                                                                                                          |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `label` | Untuk mengganti label default (`VISITOR`) dengan label lainnya, misalnya `label=views` atau `label=pengunjung`                                                     |
+| `color` | Untuk mengubah warna background badge, misalnya `color=red` atau `color=ff0000` (mendukung hex, rgb, rgba, hsl, hsla dan nama warna css)                           |
+| `style` | Untuk mengubah gaya badge, untuk nilainnya kamu bisa lihat style yang disediakan [shields.io](https://shields.io/), misal `style=social`, dll.                     |
+| `logo`  | Untuk menambahkan logo pada badge, misal `logo=github`, untuk daftar logo kamu bisa menggunakan logo yang disediakan oleh [Simple Icons](https://simpleicons.org/) |
+| `type`  | Untuk mengubah Content Type badge (default: `svg`), misalnya `type=png` untuk mengganti ke Content Type `png`                                                      |
 
 ## Panduan Penggunaan Personal Access Token
 
