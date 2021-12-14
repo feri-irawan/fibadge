@@ -32,7 +32,8 @@ const findUser = async (user) => {
 
 // Mencari repository
 const findRepo = async (user) => {
-  const userRepos = (await findUser(user)).repos
+  const userData = await findUser(user)
+  const userRepos = userData ? userData.repos : undefined
 
   if (!userRepos) return // Jika tidak ada repositori
 

@@ -29,7 +29,8 @@ const findUser = (user) => {
 
 // Mencari repository
 const findRepo = (user) => {
-  const userRepos = findUser(user).repos
+  const userData = findUser(user)
+  const userRepos = userData ? userData.repos : undefined
 
   if (!userRepos) return // Jika tidak ada repositori
 

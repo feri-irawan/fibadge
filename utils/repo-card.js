@@ -109,7 +109,7 @@ const makeGithubRepoCard = async (repoData, options) => {
 
     .replace('{repoStatsMarginTop}', height - 85)
     .replace('{langColor}', findLangColor(repo.language))
-    .replace('{lang}', repo.language)
+    .replace('{lang}', repo.language || '-')
     .replace('{stars}', numberFormatK(repo.stargazers_count))
     .replace('{forks}', numberFormatK(repo.forks_count))
     .replace(
@@ -128,6 +128,8 @@ const makeGithubRepoCard = async (repoData, options) => {
 
 // Mencari warna bahasa permrograman repo
 const findLangColor = (language) => {
+  if (!language) return 'gray'
+
   return langColors[language].color || 'gray'
 }
 

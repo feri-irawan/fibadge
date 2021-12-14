@@ -1,22 +1,8 @@
-const { makeBadge } = require('../utils/badge')
+// const express = require('express')
+// const router = express.Router()
 
-const pageNotFound = (app) => {
-  app.use((req, res) => {
-    const { type } = req.query
+// // CONTROLLERS
+// const errors = require('../controllers/errors')
 
-    makeBadge({
-      label: 'ERROR 404',
-      message: 'Page Not Found!',
-      color: 'red',
-      type
-    })
-      .on('response', (remoteRes) => {
-        remoteRes.statusCode = 404
-      })
-      .pipe(res)
-  })
-}
-
-module.exports = {
-  pageNotFound
-}
+// // Page not found
+// router.get('/')
