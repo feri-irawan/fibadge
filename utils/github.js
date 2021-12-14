@@ -1,5 +1,3 @@
-// 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
-
 const { Octokit } = require('@octokit/core')
 
 // Mendapatkan visitor dari github.
@@ -33,7 +31,32 @@ const githubClones = async (user) => {
   return data ? data.count : 0
 }
 
+// Mendapatkan data repositori dari github
+const githubRepo = async (user) => {
+  const octokit = new Octokit({ auth: user.token })
+
+  const response = await octokit.request('GET /repos/{owner}/{repo}', {
+    owner: user.username,
+    repo: user.repo
+  })
+
+  return response.data
+}
+
+// Mendapatkan data user dari githubb
+const githubUser = async (user) => {
+  const octokit = new Octokit({ auth: user.token })
+
+  const response = await octokit.request('GET /users/{username}', {
+    username: user.login
+  })
+
+  return response.data
+}
+
 module.exports = {
   githubVisitor,
-  githubClones
+  githubClones,
+  githubRepo,
+  githubUser
 }
