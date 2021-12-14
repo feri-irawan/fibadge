@@ -4,12 +4,6 @@ Visitor Badge untuk Website atau Github repository, dibuat dengan ❤ dan [NodeJ
 
 Projek ini sangat mirip dengan projek visitor badge versi PHP saya sebelumnya, yaitu [Visitor Badge](https://github.com/feri-irawan/visitor-badge).
 
-## Demo Langsung
-
-[![Visitor Badge](https://fibadge.vercel.app/visitor/feri-irawan/fibadge)]([https://](https://fibadge.vercel.app/visitor/feri-irawan/fibadge))
-
-Refresh halaman ini untuk melihat perubahan badge!
-
 ## Daftar Badge
 
 Untuk saat ini badge yang sudah ada tersedia adalah:
@@ -19,10 +13,15 @@ Untuk saat ini badge yang sudah ada tersedia adalah:
 
 ### Visitor Badge
 
+Demo Langsung:
+
+[![Visitor Badge](https://fibadge.vercel.app/badges/visitors/feri-irawan/fibadge)]([https://](https://fibadge.vercel.app/visitor/feri-irawan/fibadge))
+
+Refresh halaman ini untuk melihat perubahan badge!
 Rute:
 
 ```plaintext
-GET /visitor/:username/:repo
+GET /badges/visitors/:username/:repo
 ```
 
 - `:username` Username kamu (bebas, tapi disarankan menggunakan username Github)
@@ -43,7 +42,7 @@ Query string:
 Rute:
 
 ```plaintext
-GET /clones/:username/:repo/:token
+GET /badges/clones/:username/:repo/:token
 ```
 
 - `:username` Username Github-mu.
