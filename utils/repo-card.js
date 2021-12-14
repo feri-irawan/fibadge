@@ -84,6 +84,8 @@ const makeGithubRepoCard = async (repoData, options) => {
   const height = cardHeight(repoDescription.array.length)
   // Mengatur isi card
   let card = template
+    .replace('{title}', repo.name)
+    .replace('{description}', repo.description)
     .replace('{userName}', user.name)
     .replace('{userLogin}', user.login)
     .replace('{avatarUrl}', await imageToBase64(user.avatar_url))

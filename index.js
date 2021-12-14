@@ -6,6 +6,7 @@ const { pageNotFound } = require('./routes/errors')
 
 const visitorBadgeRouteAsync = require('./routes/badges/visitor-async')
 const clonesBadgeRoute = require('./routes/badges/clones')
+const cardRoute = require('./routes/cards/cards')
 const testsRoute = require('./routes/tests/tests')
 
 const app = express()
@@ -19,6 +20,9 @@ apiRoute(app)
 // Badge route
 visitorBadgeRouteAsync(app)
 clonesBadgeRoute(app)
+
+// Card route
+cardRoute(app)
 
 // Tests route
 testsRoute(app)
