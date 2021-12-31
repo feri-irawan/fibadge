@@ -5,7 +5,7 @@ const querystring = require('querystring')
 const DEFAULT_OPTIONS = {
   label: 'visitor',
   message: 0,
-  color: 'green',
+  color: 'success',
   style: 'for-the-badge',
   logo: '',
   type: 'svg'
