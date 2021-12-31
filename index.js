@@ -1,5 +1,6 @@
 const express = require('express')
 const { pageNotFound } = require('./controllers/errors')
+const mainRouter = require('./routes/main')
 const apisRouter = require('./routes/apis')
 const badgesRouter = require('./routes/badges')
 const cardsRouters = require('./routes/cards')
@@ -9,6 +10,7 @@ const testsRouter = require('./routes/tests')
 const app = express()
 
 // Routes
+app.use(mainRouter)
 app.use('/apis', apisRouter)
 app.use('/badges', badgesRouter)
 app.use('/cards', cardsRouters)

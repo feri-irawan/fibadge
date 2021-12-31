@@ -1,29 +1,44 @@
+require('dotenv').config()
 const axios = require('axios')
 const { githubVisitor } = require('./github')
 
-const DATABASE_PATH = 'https://fistorage.feriirawann.repl.co/api'
+const DATABASE_PATH = process.env.DATABASE_PATH
+const STORAGE_ID = process.env.STORAGE_ID
 const APIKEY = process.env.APIKEY
 
 // Mendapatkan semua users
 const loadUsers = async () => {
-  const users = (await axios.get(`${DATABASE_PATH}/load/visitor?key=${APIKEY}`))
-    .data
+  const users = (
+    await axios.get(`${DATABASE_PATH}/contents/${STORAGE_ID}`, {
+      headers: {
+        Authorization: `token ${APIKEY}`
+      }
+    })
+  ).data
 
-  return users.data
+  return users.data.contents
 }
 
 // Menyimpan semua users
 const saveUsers = (users) => {
-  axios.put(`${DATABASE_PATH}/update/visitor?key=${APIKEY}`, users)
+  axios.put(
+    `${DATABASE_PATH}/update/${STORAGE_ID}`,
+    { contents: users },
+    {
+      headers: {
+        Authorization: `token ${APIKEY}`
+      }
+    }
+  )
 }
 
 // Mencari user
 const findUser = async (user) => {
   const users = await loadUsers()
 
-  if (users.content.length === 0) return // Jika tidak ada user
+  if (users.length === 0) return // Jika tidak ada user
 
-  const result = users.content.find(
+  const result = users.find(
     ({ username }) => username.toLowerCase() === user.username.toLowerCase()
   )
 
@@ -48,9 +63,9 @@ const findRepo = async (user) => {
 const makeUserId = async () => {
   const users = await loadUsers()
 
-  if (users.content.length === 0) return 1
+  if (users.length === 0) return 1
 
-  return users.content.slice(-1)[0].id + 1
+  return users.slice(-1)[0].id + 1
 }
 
 // Membuat id repo
@@ -68,7 +83,7 @@ const addUser = async (user) => {
 
   if (!(await findUser(user))) {
     const TODAY = new Date()
-    users.content.push({
+    users.push({
       id: await makeUserId(),
       username: user.username,
       created_at: TODAY,
@@ -89,12 +104,12 @@ const addRepo = async (user) => {
 
   if (await findUser(user)) {
     if (!(await findRepo(user))) {
-      const userIndex = users.content.findIndex(
+      const userIndex = users.findIndex(
         ({ username }) => username === user.username
       )
 
       const TODAY = new Date()
-      users.content[userIndex].repos.push({
+      users[userIndex].repos.push({
         id: await makeRepoId(user),
         name: user.repo,
         visitor: 0,
@@ -115,7 +130,7 @@ const addRepo = async (user) => {
 const addVisitor = async (user) => {
   const users = await loadUsers()
   const repos = (await findUser(user)).repos
-  const userIndex = users.content.findIndex(
+  const userIndex = users.findIndex(
     ({ username }) => username === user.username
   )
   const repoIndex = repos.findIndex(({ name }) => name === user.repo)
@@ -125,31 +140,30 @@ const addVisitor = async (user) => {
   users.updated_at = TODAY
 
   // Memperbarui tanggal updated_at pada user
-  users.content[userIndex].updated_at = TODAY
+  users[userIndex].updated_at = TODAY
 
   // Cek apakah user menyertakan token?
   if (user.token) {
     const ghVisitor = await githubVisitor(user)
 
     // Menambah visitor
-    users.content[userIndex].repos[repoIndex].visitor =
+    users[userIndex].repos[repoIndex].visitor =
       ghVisitor ?? repos[repoIndex].visitor + 1
 
     // Memperbarui status github_token jika berhasil mengambil visitor dari github
-    if (ghVisitor) users.content[userIndex].repos[repoIndex].github_token = true
+    if (ghVisitor) users[userIndex].repos[repoIndex].github_token = true
     // Memperbarui status github_token jika gagal mengambil visitor dari github
-    else users.content[userIndex].repos[repoIndex].github_token = false
+    else users[userIndex].repos[repoIndex].github_token = false
   } else {
     // Menambah visitor
-    users.content[userIndex].repos[repoIndex].visitor =
-      repos[repoIndex].visitor + 1
+    users[userIndex].repos[repoIndex].visitor = repos[repoIndex].visitor + 1
 
     // Memperbarui status github_token jika tidak ada token
-    users.content[userIndex].repos[repoIndex].github_token = false
+    users[userIndex].repos[repoIndex].github_token = false
   }
 
   // Memperbarui tanggal updated_at pada repo
-  users.content[userIndex].repos[repoIndex].updated_at = TODAY
+  users[userIndex].repos[repoIndex].updated_at = TODAY
 
   saveUsers(users)
 }
