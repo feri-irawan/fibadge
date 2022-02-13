@@ -149,7 +149,7 @@ const repoDescriptionFormat = (description) => {
 
   return {
     array: descArr,
-    html: descArr.map((v) => `<tspan dy="1rem" x="0">${v}</tspan>`).join()
+    html: descArr.map((v) => `<tspan dy="1rem" x="0">${v}</tspan>`).join('')
   }
 }
 
